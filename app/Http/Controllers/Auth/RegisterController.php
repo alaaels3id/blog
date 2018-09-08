@@ -68,7 +68,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-        $user->roles()->sync(2, false);
+        $user->roles()->sync(GetAdminRole(), false);
         return $user;
     }
 }

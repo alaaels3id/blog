@@ -75,3 +75,8 @@ function GetRoles(){
 function GetLocalizedPath($localeCode){
     return LaravelLocalization::getLocalizedURL($localeCode, null, [], true);
 }
+function GetAdminRole()
+{
+	$rol = App\Role::where('permissions', '{"browse-only":true}')->first();
+	return $rol->id;
+}

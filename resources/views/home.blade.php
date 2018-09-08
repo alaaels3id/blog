@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in ! {{ __('blog.home') }}
+                    You are logged in ! @lang('blog.home')
                     <br>
                     <hr>
                     <a href="{{ route('posts.index') }}" class="btn btn-secondary">Posts</a>

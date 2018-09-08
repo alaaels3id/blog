@@ -16,19 +16,23 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'lo
 function()
 {
 	Route::get('/home', 'HomeController@index')->name('home');
-	Route::resource('/posts', 'PostsController');
-	Route::get('/posts/{id}/destroy', 'PostsController@destroy')->name('posts.destroy');
+
+	Route::get('/posts', 'PostsController@index')->middleware('can:browse-only')->name('posts.index');
+	Route::group(['prefix' => 'posts', 'middleware' => ['can:control-all']], function()
+	{
+		Route::get('/create', 'PostsController@craete')->name('posts.create');
+		Route::get('{id}/edit', 'PostsController@edit')->name('posts.edit');
+		Route::patch('{id}/edit', 'PostsController@update')->name('posts.update');
+		Route::get('/{id}/destroy', 'PostsController@destroy')->name('posts.destroy');
+	});
+
 	Route::get('/users', 'HomeController@users')->name('users');
 	Route::view('/', 'welcome');
 });
 
-Route::group(['prefix' => 'admin','middleware' => ['can:control-all']], function(){
-	Route::view('/', 'admins.index')->name('admin');
-
-	Route::post('/role', function(){
-		dd(request()->input('role'));
-	})->name('admin.roles');
-	
+Route::group(['prefix' => 'admin'], function(){
+	Route::get('/', 'Admin\AdminController@index')->name('admin')->middleware('can:control-all');
+	Route::get('/ajax/changeRoles/', 'Admin\AdminController@changeRoles')->middleware('can:change-roles');
 });
 
 

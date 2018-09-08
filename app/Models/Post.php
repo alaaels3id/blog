@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
@@ -11,4 +12,9 @@ class Post extends Model
     public $translatedAttributes = ['title', 'body'];
 
     protected $fillable = ['user_id'];
+
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

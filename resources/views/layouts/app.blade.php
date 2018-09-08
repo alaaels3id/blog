@@ -56,7 +56,7 @@
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 @can('control-all')
-                                    <a class="dropdown-item" href="{{ route('admin') }}">Admin Panel</a>
+                                <a class="dropdown-item" href="{{ route('admin') }}">Admin Panel</a>
                                 @endcan
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();document.getElementById('logout-form').submit();">
@@ -93,4 +93,5 @@
         </main>
     </div>
 </body>
+@yield('javascript')
 </html>

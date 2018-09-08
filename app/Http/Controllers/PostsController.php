@@ -12,14 +12,11 @@ class PostsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('can:create-post')->only('create');
-        $this->middleware('can:update-post')->only('edit');
-        $this->middleware('can:delete-post')->only('destroy');
     }
 
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::with('users')->get();
         return $posts != null ? view('site.posts.index', compact('posts')) : 'null';
     }
 
@@ -43,14 +40,9 @@ class PostsController extends Controller
         return back()->with('success', 'Post added successfully');
     }
 
-    public function show($id)
-    {
-        //
-    }
-
     public function edit($id)
     {
-        $post = POst::find(intval($id));
+        $post = Post::find(intval($id));
         return view('site.posts.edit', compact('post'));
     }
 

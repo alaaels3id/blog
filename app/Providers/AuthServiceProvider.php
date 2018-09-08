@@ -7,36 +7,36 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 
 class AuthServiceProvider extends ServiceProvider
 {
-    /**
-     * The policy mappings for the application.
-     *
-     * @var array
-     */
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
     ];
 
-    /**
-     * Register any authentication / authorization services.
-     *
-     * @return void
-     */
     public function boot()
     {
         $this->registerPolicies();
         $this->registerPostPolicies();
-
-        //
     }
 
     public function registerPostPolicies()
     {
+        Gate::define('browse-only', function($user){
+            return $user->hasAccess(['browse-only']);
+        });
+        
         Gate::define('create-post', function($user){
             return $user->hasAccess(['create-post']);
         });
 
         Gate::define('delete-post', function($user){
             return $user->hasAccess(['delete-post']);
+        });
+
+        Gate::define('control-all', function($user){
+            return $user->hasAccess(['control-all']);
+        });
+
+        Gate::define('change-roles', function($user){
+            return $user->hasAccess(['change-roles']);
         });
         
         Gate::define('update-post', function($user){

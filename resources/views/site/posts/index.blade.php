@@ -14,14 +14,14 @@
 
                 <div class="card-body">
                     <table class="table table-hover text-center table-bordered">
-                    	<thead><tr><th>#</th><th>title</th><th>body</th>@can('create-post')<th>owner</th><th>Action</th>@endcan</tr></thead>
+                    	<thead><tr><th>#</th><th>title</th><th>body</th>@can('control-all')<th>owner</th><th>Action</th>@endcan</tr></thead>
                     	<tbody>
                     		@forelse($posts as $post)
                     		<tr>
                                 <td>{{ $post->id }}</td>
                     			<td>{{ str_limit($post->title, 27, '...') }}</td>
                                 <td>{{ str_limit($post->body, 27, '...') }}</td>
-                                @can('update-post')
+                                @can('control-all')
                                 <td><span class="badge badge-primary badge-pill">{{ $post->user_id }}</span></td>
                                 <td>
                                     <a class="btn btn-outline-success" href="{{ route('posts.edit', $post->id) }}">

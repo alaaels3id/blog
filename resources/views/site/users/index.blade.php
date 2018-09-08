@@ -15,7 +15,7 @@
                 <div class="card-body">
                     <table class="table table-hover text-center table-bordered">
                     	<thead>
-                    		<tr><th>#</th><th>Name</th><th>Email</th><th>Join in</th></tr>
+                    		<tr><th>#</th><th>Name</th><th>Email</th><th>Join in</th>@can('control-all')<th>Role</th>@endcan</tr>
                     	</thead>
                     	<tbody>
                     		@forelse($users as $user)
@@ -23,7 +23,8 @@
                                 <td>{{ $user->id }}</td>
                     			<td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                    			<td>{{ $user->created_at->diffForHumans() }}</td>
+                                <td>{{ $user->created_at->diffForHumans() }}</td>
+                                @can('control-all')<td>{{ GetUserRole($user)->name }}</td>@endcan
                     		</tr>
                     		@empty
                     		<tr><td colspan="3"><div class="alert alert-info" role="alert">No Users</div></td></tr>
